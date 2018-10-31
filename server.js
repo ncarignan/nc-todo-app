@@ -8,6 +8,7 @@ const methodOverride = require('method-override');
 // Application Setup
 const app = express();
 const PORT = process.env.PORT || 3000;
+const DATABASE_URL = process.env.DATABASE_URL || 'postgres://ncarignan:password@localhost:5432/todo_app_demo'
 
 // Utilize ExpressJS functionality to parse the body of the request
 app.use(express.urlencoded({extended: true}));
@@ -22,7 +23,7 @@ app.use(methodOverride((request, response) => {
 }))
 
 // Database Setup
-const client = new pg.Client('postgres://localhost:5432/task_app');
+const client = new pg.Client(DATABASE_URL);
 client.connect();
 client.on('error', err => console.error(err));
 
